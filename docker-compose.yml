@@ -65,6 +65,7 @@ services:
       discovery.type: single-node
     networks:
       - elk
+    container_name: elk_v3x_elasticsearch
     restart: unless-stopped
 
   logstash:
@@ -79,7 +80,7 @@ services:
       - 5044:5044
       - 50000:50000/tcp
       - 50000:50000/udp
-      - 39600:9600
+      - 9600:9600
     environment:
       LS_JAVA_OPTS: -Xms256m -Xmx256m
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
@@ -87,6 +88,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    container_name: elk_v3x_logstash
     restart: unless-stopped
 
   kibana:
@@ -104,11 +106,13 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    container_name: elk_v3x_kibana
     restart: unless-stopped
 
 networks:
   elk:
     driver: bridge
+    name: elk_v3x_network
 
 volumes:
   elasticsearch:
