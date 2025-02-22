@@ -65,7 +65,7 @@ services:
       discovery.type: single-node
     networks:
       - elk
-    container_name: elk_v3x_elasticsearch
+    container_name: elastic_elk_elasticsearch
     restart: unless-stopped
 
   logstash:
@@ -88,7 +88,7 @@ services:
       - elk
     depends_on:
       - elasticsearch
-    container_name: elk_v3x_logstash
+    container_name: elastic_elk_logstash
     restart: unless-stopped
 
   kibana:
@@ -106,13 +106,13 @@ services:
       - elk
     depends_on:
       - elasticsearch
-    container_name: elk_v3x_kibana
+    container_name: elastic_elk_kibana
     restart: unless-stopped
 
 networks:
   elk:
     driver: bridge
-    name: elk_v3x_network
+    name: elastic_elk_network
 
 volumes:
   elasticsearch:
